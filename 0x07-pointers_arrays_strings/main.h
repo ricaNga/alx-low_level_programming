@@ -13,4 +13,3 @@ void print_diagsums(int *a, int size);
 void set_string(char **s, char *to);
 
 #endif
-© 2022 GitHub, Inc.
