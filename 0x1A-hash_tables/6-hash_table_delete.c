@@ -29,4 +29,3 @@ void hash_table_delete(hash_table_t *ht)
 	ht->size = 0;
 	free(ht);
 }
-
