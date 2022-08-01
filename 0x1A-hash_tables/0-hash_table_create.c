@@ -1,53 +1,27 @@
 #include "hash_tables.h"
 
 /**
- * insert_node - inserts a node at head of linked list.
- * @head: linked list.
- * @key: key to be added.
- * @value: value associated with key.
+ * hash_table_create - creates a hash table
+ * @size: size of the array
  *
- * Return: nothing.
- */
-void insert_node(hash_node_t **head, char *key, char *value)
-{
-	node_pointer new_node;
-
-	new_node = malloc(sizeof(hash_node_t));
-	if (!new_node)
-		return;
-
-	new_node->key = key;
-	new_node->value = value;
-	new_node->next = *head;
-
-	*head = new_node;
-}
-
-/**
- * hash_table_create - creates a hash table.
- * @size: the size of the array.
- *
- * Return: a pointer to the newly created hash table or
- * NULL if something went wrong.
+ * Return: pointer to the newly created hash table
  */
 hash_table_t *hash_table_create(unsigned long int size)
 {
-	hash_pointer table;
-	unsigned long int index;
+	hash_table_t *hash_table;
+	unsigned long int i;
 
-	table = malloc(sizeof(hash_table_t));
-	if (!table)
+	hash_table = malloc(sizeof(hash_table_t));
+	if (hash_table == NULL)
 		return (NULL);
-
-	table->size = size;
-	table->array = malloc(sizeof(hash_node_t *) * size);
-	if (!table->array)
-		return (NULL);
-
-	for (index = 0; index < size; index++)
+	hash_table->size = size;
+	hash_table->array = malloc(size * sizeof(hash_node_t *));
+	if (hash_table->array == NULL)
 	{
-		table->array[index] = 0;
+		free(hash_table);
+		return (NULL);
 	}
-
-	return (table);
+	for (i = 0; i < size; i++)
+		hash_table->array[i] = NULL;
+	return (hash_table);
 }
